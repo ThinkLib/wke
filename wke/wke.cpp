@@ -396,7 +396,10 @@ const utf8* wkeGetCookie(wkeWebView* webView)
     return webView->cookie();
 }
 
-
+WKE_API void WKE_CALL wkeSetCookie(wkeWebView* webView,const utf8* val)
+{
+    return webView->setCookie(val);
+}
 void wkeSetCookieEnabled(wkeWebView* webView, bool enable)
 {
     webView->setCookieEnabled(enable);
@@ -839,4 +842,20 @@ int wkeRunMessageLoop(const bool *quit)
     }
 
     return 0;
+}
+
+ 
+const void* wkeGetCookielist()
+{
+    return (const curl_slist*) WebCore::ResourceHandleManager::sharedInstance()->getCookielist();
+}
+
+void wkeFreeCookielist(const void* cookieList)
+{
+    WebCore::ResourceHandleManager::sharedInstance()->freeCookielist((curl_slist*)cookieList);
+}
+
+void wkeCurlSetOptString(int opt,const char * command)
+{
+     WebCore::ResourceHandleManager::sharedInstance()->curlSetOptString((CURLoption)opt,command);
 }

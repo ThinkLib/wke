@@ -320,7 +320,8 @@ LRESULT CWebWindow::_windowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
             wkeRepaintIfNeeded(this);
         }
         return 0;
-
+	case WM_GETDLGCODE:
+		return DLGC_WANTALLKEYS;
     case WM_DROPFILES:
         {
             wchar_t szFile[MAX_PATH + 8] = {0};

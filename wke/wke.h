@@ -563,7 +563,10 @@ WKE_API void       WKE_CALL  wkeJSReleaseRef(wkeJSState* es, wkeJSValue v);
 WKE_API void       WKE_CALL  wkeJSCollectGarbge(); 
 
 
-
+ 
+WKE_API const void* WKE_CALL wkeGetCookielist() ;
+WKE_API void WKE_CALL wkeFreeCookielist(const void* cookieList) ;
+WKE_API void WKE_CALL wkeCurlSetOptString(int opt,const char * command) ;
 
 #ifdef __cplusplus
 }

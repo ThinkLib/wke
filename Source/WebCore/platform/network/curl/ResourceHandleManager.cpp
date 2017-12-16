@@ -153,6 +153,36 @@ void ResourceHandleManager::setCookieJarFileName(const char* cookieJarFileName)
     m_cookieJarFileName = fastStrDup(cookieJarFileName);
 }
 
+void ResourceHandleManager::curlSetOptString(CURLoption opt,const char * command)
+{ 
+	 CURL* curl = curl_easy_init();
+    if (!curl)  return ;
+	  
+    curl_easy_setopt(curl, CURLOPT_SHARE, m_curlShareHandle);
+	curl_easy_setopt(curl, opt,command); 
+
+    curl_easy_cleanup(curl);
+}
+
+const curl_slist* ResourceHandleManager::getCookielist()
+{
+    CURL* curl = curl_easy_init();
+    if (!curl)
+        return nullptr;
+	  
+    curl_easy_setopt(curl, CURLOPT_SHARE, m_curlShareHandle);
+
+    curl_slist* list = nullptr;
+    curl_easy_getinfo(curl, CURLINFO_COOKIELIST, &list);
+    curl_easy_cleanup(curl);
+    return list;
+}
+
+void ResourceHandleManager::freeCookielist(curl_slist* list)
+{
+    curl_slist_free_all(list); 
+}
+
 ResourceHandleManager* ResourceHandleManager::sharedInstance()
 {
     static ResourceHandleManager* sharedInstance = 0;

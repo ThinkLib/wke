@@ -57,6 +57,9 @@ public:
     void add(ResourceHandle*);
     void cancel(ResourceHandle*);
     void setCookieJarFileName(const char* cookieJarFileName);
+	void curlSetOptString(CURLoption opt,const char * command); 
+	const curl_slist* getCookielist(); 
+	void freeCookielist(curl_slist* list);
 
     void dispatchSynchronousJob(ResourceHandle*);
 

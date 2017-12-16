@@ -135,6 +135,11 @@ SimpleFontData* CSSFontFaceSource::getFontData(const FontDescription& fontDescri
                     if (start != notFound)
                         fragmentIdentifier = m_string.string().substring(start + 1);
                     m_externalSVGFontElement = m_font->getSVGFontById(fragmentIdentifier);
+
+					if (!m_externalSVGFontElement) {
+						String fragmentIdentifier;
+						m_externalSVGFontElement = m_font->getSVGFontById(fragmentIdentifier);
+					}
                 }
 
                 if (!m_externalSVGFontElement)
